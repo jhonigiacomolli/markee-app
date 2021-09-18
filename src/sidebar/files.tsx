@@ -1,13 +1,7 @@
 import * as $ from './files-styles'
 import { ListItem } from './list-item'
+import { File } from 'resources/types'
 
-type File ={
-    id: string
-    name: string
-    content: string
-    active: boolean
-    status: 'editing' | 'saving' | 'saved'
-  }
 function Files () {
   const files:File[] = [
     {

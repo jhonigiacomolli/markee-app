@@ -1,17 +1,17 @@
 import * as $ from './list-tem-styles'
 import { CircleIcon, CloseIcon, SavedIcon, SavingIcon } from './icons'
+import { File } from 'resources/types'
 
-type File ={
-    id: string
-    name: string
-    content: string
-    active: boolean
-    status: 'editing' | 'saving' | 'saved'
-}
 type ListItemProps = {
     file: File;
 }
 function ListItem ({ file }:ListItemProps) {
+  const Component = {
+    editing: <CircleIcon />,
+    saving: <SavingIcon />,
+    saved: <SavedIcon />,
+  }[file.status]
+
   return (
     <$.Item active={file.active}>
       <$.PersonIcon status={file.status} />
@@ -19,9 +19,7 @@ function ListItem ({ file }:ListItemProps) {
         {file.name}
       </$.Link>
       <$.Actions>
-        {(file.status === 'editing' && file.active) && <CircleIcon />}
-        {(file.status === 'saving' && file.active) && <SavingIcon />}
-        {(file.status === 'saved' && file.active) && <SavedIcon />}
+        {file.active && Component}
         <$.CloseButton>
           <CloseIcon />
         </$.CloseButton>
