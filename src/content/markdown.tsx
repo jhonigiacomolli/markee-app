@@ -1,9 +1,14 @@
+import { Dispatch } from 'react'
 import * as $ from './markdown-styles'
 
-function Markdown () {
+type MarkdownProps = {
+  setResult: Dispatch<string>
+}
+function Markdown ({ setResult }:MarkdownProps) {
   return (
-    <$.MarkdownEditor value='## Bootcamp Brain Co.
-        Lorem ipsum dolor sit amet simet'
+    <$.MarkdownEditor
+      placeholder='Digite aqui seu Markdown...'
+      onChange={(e) => setResult(e.target.value)}
     />
   )
 }

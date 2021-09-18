@@ -5,7 +5,8 @@ const MarkdownEditor = styled.textarea`${({ theme }) => css`
     height: 100%;
     border: none;
     font-family: 'Inconsolate', monospace;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
+    line-height: 2.7rem;
     color: ${theme.colors.black};
     background-color: ${theme.colors.white};
     :focus-visible {
