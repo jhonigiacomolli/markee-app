@@ -1,52 +1,38 @@
 import * as $ from './files-styles'
 import { ListItem } from './list-item'
 import { File } from 'resources/types'
+import { v4 } from 'uuid'
+import { useState } from 'react'
 
 function Files () {
-  const files:File[] = [
-    {
-      id: 'file-0',
-      name: 'README.md',
-      content: '## Bootcamp Brain Co. Lorem ipsum dolor sit amet simet',
-      active: false,
-      status: 'saving',
-    },
-    {
-      id: 'file-1',
-      name: 'CONTRIBUTING.md',
-      content: '## Bootcamp Brain Co. Lorem ipsum dolor sit amet simet',
-      active: false,
-      status: 'saved',
-    },
-    {
-      id: 'file-2',
-      name: 'Licence.md',
-      content: '## Bootcamp Brain Co. Lorem ipsum dolor sit amet simet',
-      active: false,
-      status: 'saved',
-    },
-    {
-      id: 'file-3',
-      name: 'Links.md',
-      content: '## Bootcamp Brain Co. Lorem ipsum dolor sit amet simet',
-      active: false,
-      status: 'saved',
-    },
-    {
-      id: 'file-4',
-      name: 'Roadmap.md',
-      content: '## Bootcamp Brain Co. Lorem ipsum dolor sit amet simet',
+  const [files, setFiles] = useState<File[]>([])
+
+  function createNewFile () {
+    const newFile:File = {
+      id: v4(),
+      name: 'Sem título',
+      content: '',
       active: true,
-      status: 'editing',
-    },
-  ]
+      status: 'saved',
+    }
+
+    const oldFiles = files.map(item => {
+      return {
+        ...item,
+        active: false,
+      }
+    })
+
+    setFiles([...oldFiles, newFile])
+  }
+  console.log(files)
 
   return (
     <$.FilesWrapper>
       <$.SectionTitle>
         Arquivos
       </$.SectionTitle>
-      <$.PrimaryButton>
+      <$.PrimaryButton onClick={() => createNewFile()}>
         <$.PlusIcon />
         Adicionar Arquivo
       </$.PrimaryButton>

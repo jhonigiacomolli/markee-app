@@ -7,7 +7,7 @@ type MarkdownProps = {
 function Markdown ({ setResult }:MarkdownProps) {
   return (
     <$.MarkdownEditor
-      placeholder='Digite aqui seu Markdown...'
+      placeholder='Digite aqui seu markdown...'
       onChange={(e) => setResult(e.target.value)}
     />
   )
