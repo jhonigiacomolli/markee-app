@@ -1,21 +1,22 @@
-import { RefObject, useState } from 'react'
+import { RefObject } from 'react'
+import { File } from 'resources/types'
 import * as $ from './content-styles'
 import { Markdown } from './markdown'
 import { Result } from './result'
-import { Title } from './titlle'
+import { Title } from './title'
 
 type ContentProps = {
   inputRef: RefObject<HTMLInputElement>
+  files: File[]
+  setFiles: (file: (oldfile: File[]) => File[]) => void
 }
-function Content ({ inputRef }:ContentProps) {
-  const [result, setResult] = useState('')
-
+function Content ({ inputRef, files, setFiles }:ContentProps) {
   return (
     <$.ContentWrapper>
-      <Title inputRef={inputRef} />
-      <Markdown setResult={setResult} />
+      <Title inputRef={inputRef} files={files} setFiles={setFiles} />
+      <Markdown files={files} setFiles={setFiles} />
       <$.Line />
-      <Result result={result} />
+      <Result files={files} />
     </$.ContentWrapper>
   )
 }

@@ -1,14 +1,24 @@
 import { Content } from 'content'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
+import { File } from 'resources/types'
 import { Sidebar } from 'sidebar'
 import styled from 'styled-components/macro'
 
 function App () {
+  const [files, setFiles] = useState<File[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
   return (
     <AppWrapper>
-      <Sidebar inputRef={inputRef} />
-      <Content inputRef={inputRef} />
+      <Sidebar
+        inputRef={inputRef}
+        files={files}
+        setFiles={setFiles}
+      />
+      <Content
+        inputRef={inputRef}
+        files={files}
+        setFiles={setFiles}
+      />
     </AppWrapper>
   )
 }

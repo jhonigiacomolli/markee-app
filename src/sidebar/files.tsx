@@ -2,14 +2,14 @@ import * as $ from './files-styles'
 import { ListItem } from './list-item'
 import { File } from 'resources/types'
 import { v4 } from 'uuid'
-import { RefObject, useState } from 'react'
+import { RefObject } from 'react'
 
 type FilesProps = {
   inputRef: RefObject<HTMLInputElement>
+  files: File[]
+  setFiles: (file: (oldfile: File[]) => File[]) => void
 }
-function Files ({ inputRef }: FilesProps) {
-  const [files, setFiles] = useState<File[]>([])
-
+function Files ({ inputRef, files, setFiles }: FilesProps) {
   function createNewFile () {
     const newFile:File = {
       id: v4(),
@@ -27,7 +27,6 @@ function Files ({ inputRef }: FilesProps) {
       .concat(newFile))
     inputRef.current?.focus()
   }
-  console.log(files)
 
   return (
     <$.FilesWrapper>
@@ -41,7 +40,7 @@ function Files ({ inputRef }: FilesProps) {
       <$.FileList>
         {
             files.map(file => (
-              <ListItem key={file.id} file={file} />
+              <ListItem key={file.id} file={file} inputRef={inputRef} setFiles={setFiles} />
             ))
         }
       </$.FileList>
