@@ -1,6 +1,8 @@
 import * as $ from './result-styles'
 import marked from 'marked'
 import 'highlight.js/styles/github.css'
+import { useEffect, useState } from 'react'
+import { File } from 'resources/types'
 
 import('highlight.js').then(hljs => {
   const h = hljs.default
@@ -16,11 +18,17 @@ import('highlight.js').then(hljs => {
 })
 
 type ResultProps = {
-  result: string;
+  files: File[];
 }
-function Result ({ result }:ResultProps) {
+function Result ({ files }:ResultProps) {
+  const [content, setContet] = useState('')
+
+  useEffect(() => {
+    setContet(files.filter(file => file.active === true)[0]?.content ?? '')
+  }, [files])
+
   return (
-    <$.ResultWrapper dangerouslySetInnerHTML={{ __html: marked(result) }} />
+    <$.ResultWrapper dangerouslySetInnerHTML={{ __html: marked(content) }} />
   )
 }
 

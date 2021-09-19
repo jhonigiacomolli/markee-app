@@ -1,12 +1,14 @@
 import * as $ from './list-tem-styles'
 import { CircleIcon, CloseIcon, SavedIcon, SavingIcon } from './icons'
 import { File } from 'resources/types'
+import { RefObject } from 'react'
 
 type ListItemProps = {
+    inputRef: RefObject<HTMLInputElement>
     file: File;
     setFiles: (file: (oldfile: File[]) => File[]) => void
 }
-function ListItem ({ file, setFiles }:ListItemProps) {
+function ListItem ({ inputRef, file, setFiles }:ListItemProps) {
   const Component = {
     editing: <CircleIcon />,
     saving: <SavingIcon />,
@@ -17,19 +19,29 @@ function ListItem ({ file, setFiles }:ListItemProps) {
     setFiles(oldFile => (
       oldFile.map(fl => fl.id === file.id ? { ...fl, active: true } : { ...fl, active: false })
     ))
+    inputRef.current?.focus()
+  }
+
+  function handleDelete (fileID: string) {
+    setFiles(oldFiles => (
+      oldFiles
+        .filter(file => file.id !== fileID)
+    ))
   }
 
   return (
-    <$.Item active={file.active} onClick={() => handleClick()}>
-      <$.PersonIcon status={file.status} />
-      <$.Link active={file.active}>
+    <$.Item active={file.active}>
+      <$.PersonIcon status={file.status} active={file.active} />
+      <$.Link active={file.active} onClick={() => handleClick()}>
         {file.name}
       </$.Link>
       <$.Actions>
         {file.active && Component}
-        <$.CloseButton>
-          <CloseIcon />
-        </$.CloseButton>
+        {!file.active && (
+          <$.CloseButton onClick={() => handleDelete(file.id)}>
+            <CloseIcon />
+          </$.CloseButton>
+        )}
       </$.Actions>
     </$.Item>
   )

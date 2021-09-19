@@ -40,7 +40,7 @@ function Files ({ inputRef, files, setFiles }: FilesProps) {
       <$.FileList>
         {
             files.map(file => (
-              <ListItem key={file.id} file={file} setFiles={setFiles} />
+              <ListItem key={file.id} file={file} inputRef={inputRef} setFiles={setFiles} />
             ))
         }
       </$.FileList>

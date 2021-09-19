@@ -11,7 +11,7 @@ const Item = styled.li<ItemProps>`${({ theme, active }) => css`
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 1.5rem;
-    padding: 1rem 1.4rem;
+    padding: 0 1.4rem;
     margin: 10px 0;
     border-radius: 6px;
     background-color: ${active ? theme.colors.lightBlack : 'transparent'};
@@ -29,14 +29,15 @@ const Item = styled.li<ItemProps>`${({ theme, active }) => css`
     }
 `}`
 
-const PersonIcon = styled(FileIcon)<ItemProps>`${({ theme, status }) => css`
-    stroke: ${(status === 'editing' || status === 'saving') ? theme.colors.primary : theme.colors.gray};
+const PersonIcon = styled(FileIcon)<ItemProps>`${({ theme, status, active }) => css`
+    stroke: ${(status === 'editing' || status === 'saving' || active) ? theme.colors.primary : theme.colors.gray};
 `}`
 
 const Link = styled.a<ItemProps>`${({ theme, active }) => css`
     font-family: 'DM Sans', sans-serif;
     font-size: 1.6rem;
     font-weight: 400;
+    padding: 1.4rem 0;
     color: ${active ? theme.colors.white : theme.colors.gray};
     opacity: ${active ? 1 : 0.65};
 `}`

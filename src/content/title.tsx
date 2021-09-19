@@ -31,7 +31,12 @@ function Title ({ inputRef, files, setFiles }: TitleProps) {
   return (
     <$.TitleWrapper>
       <$.TitleIcon />
-      <$.Input ref={inputRef} value={activeFile?.name} onChange={(e) => handleUpdateTitle(e.target.value)} />
+      <$.Input
+        placeholder='Digite aqui o título'
+        ref={inputRef}
+        value={activeFile?.name}
+        onChange={(e) => handleUpdateTitle(e.target.value)}
+      />
     </$.TitleWrapper>
   )
 }
