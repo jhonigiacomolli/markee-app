@@ -53,8 +53,8 @@ const PrimaryButton = styled.button`${({ theme }) => css`
     color: ${theme.colors.lightBlack};
     background-color: ${theme.colors.primary};
     :hover {
-        filter: brightness(1.1);
-    }
+        background-color: ${theme.colors.primaryDark};
+}
 `}`
 
 const PlusIcon = styled.span`${({ theme }) => css`

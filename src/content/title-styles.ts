@@ -18,6 +18,7 @@ const Input = styled.input`${({ theme }) => css`
     font-weight: 500;
     line-height: 2.3rem;
     border: none;
+    padding: 7px;
     color: ${theme.colors.black} ;
     background-color: ${theme.colors.white};
     :focus-visible {

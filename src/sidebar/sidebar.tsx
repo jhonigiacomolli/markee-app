@@ -1,12 +1,16 @@
+import { RefObject } from 'react'
 import styled, { css } from 'styled-components/macro'
 import { Files } from './files'
 import { Logo } from './logo'
 
-function Sidebar () {
+type SidebarProps = {
+  inputRef: RefObject<HTMLInputElement>;
+}
+function Sidebar ({ inputRef }:SidebarProps) {
   return (
     <SidebarWrapper>
       <Logo />
-      <Files />
+      <Files inputRef={inputRef} />
     </SidebarWrapper>
   )
 }

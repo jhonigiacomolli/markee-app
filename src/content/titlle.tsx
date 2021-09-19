@@ -1,10 +1,14 @@
+import { RefObject } from 'react'
 import * as $ from './title-styles'
 
-function Title () {
+type TitleProps = {
+  inputRef: RefObject<HTMLInputElement>
+}
+function Title ({ inputRef }: TitleProps) {
   return (
     <$.TitleWrapper>
       <$.TitleIcon />
-      <$.Input value='Sem título' />
+      <$.Input ref={inputRef} value='Sem título' />
     </$.TitleWrapper>
   )
 }
