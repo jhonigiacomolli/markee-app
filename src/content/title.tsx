@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useState } from 'react'
+import { RefObject, useEffect, useRef, useState } from 'react'
 import { File } from 'resources/types'
 import * as $ from './title-styles'
 
@@ -8,7 +8,10 @@ type TitleProps = {
   setFiles: (file: (oldfile: File[]) => File[]) => void
 }
 function Title ({ inputRef, files, setFiles }: TitleProps) {
-  const [activeFile, setActiveFile] = useState<File>()
+  const [activeFile, setActiveFile] = useState<File>(files[0])
+  const timerEditing = useRef(0)
+  const timerSaving = useRef(0)
+  const timerSaved = useRef(0)
 
   useEffect(() => {
     setActiveFile(files.filter(item => item.active === true)[0])
@@ -25,7 +28,28 @@ function Title ({ inputRef, files, setFiles }: TitleProps) {
   }, [activeFile, setFiles])
 
   function handleUpdateTitle (value: string) {
-    activeFile && setActiveFile({ ...activeFile, name: value })
+    clearTimeout(timerEditing.current)
+    clearTimeout(timerSaving.current)
+    clearTimeout(timerSaved.current)
+    activeFile && setActiveFile({ ...activeFile, name: value, status: 'editing' })
+    editing()
+  }
+
+  const editing = () => {
+    timerEditing.current = window.setTimeout(saving, 300)
+  }
+
+  const saving = () => {
+    timerSaving.current = window.setTimeout(() => {
+      activeFile && setActiveFile(old => ({ ...old, status: 'saving' }))
+      saved()
+    }, 300)
+  }
+
+  const saved = () => {
+    timerSaved.current = window.setTimeout(() => {
+      activeFile && setActiveFile(old => ({ ...old, status: 'saved' }))
+    }, 300)
   }
 
   return (
