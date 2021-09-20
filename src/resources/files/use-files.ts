@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { File, Status, TypeUpdate } from 'resources/types'
 import { v4 } from 'uuid'
+import localforage from 'localforage'
 
 export function useFiles () {
   const [files, setFiles] = useState<File[]>([])
@@ -9,25 +10,42 @@ export function useFiles () {
   const timerSaving = useRef(0)
   const timerSaved = useRef(0)
 
+  useEffect(() => {
+    getFiles()
+
+    return () => {
+      getFiles()
+    }
+  }, [])
+
+  const getFiles = async () => {
+    const localFiles:File[] = await localforage.getItem('files') ?? []
+    localFiles.length > 0 ? setFiles(localFiles) : createNewFile()
+  }
+
   const createNewFile = () => {
-    setFiles(oldFiles => ([
-      ...oldFiles.map(file => ({
-        ...file,
-        active: false,
-      })),
-      {
-        id: v4(),
-        name: 'Sem título',
-        content: '',
-        active: true,
-        status: 'saved',
-      },
-    ]))
+    setFiles(oldFiles => {
+      const newFiles:File[] = [
+        ...oldFiles.map(file => ({
+          ...file,
+          active: false,
+        })),
+        {
+          id: v4(),
+          name: 'Sem título',
+          content: '',
+          active: true,
+          status: 'saved',
+        },
+      ]
+      localforage.setItem('files', newFiles)
+      return newFiles
+    })
   }
 
   const updateFile = (id: string, type: TypeUpdate, status?: Status, title?: string, content?: string) => {
-    setFiles(oldFiles => (
-      oldFiles.map(file => {
+    setFiles(oldFiles => {
+      const newFiles = oldFiles.map(file => {
         if (type === 'active') {
           return (
             {
@@ -54,7 +72,11 @@ export function useFiles () {
             : file
         }
       })
-    ))
+
+      status === 'saved' && localforage.setItem('files', newFiles)
+      type === 'active' && localforage.setItem('files', newFiles)
+      return newFiles
+    })
     status === 'editing' && editing(id)
   }
 
@@ -79,9 +101,11 @@ export function useFiles () {
   }
 
   const deleteFile = (id: string) => {
-    setFiles(oldFile => (
-      oldFile.filter(file => file.id !== id)
-    ))
+    setFiles(oldFile => {
+      const newFiles = oldFile.filter(file => file.id !== id)
+      localforage.setItem('files', newFiles)
+      return newFiles
+    })
   }
 
   return {
