@@ -1,16 +1,14 @@
 import * as $ from './files-styles'
 import { ListItem } from './list-item'
-import { File } from 'resources/types'
-import { RefObject } from 'react'
+import { File, UpdateFunctionType } from 'resources/types'
 
 type FilesProps = {
-  inputRef: RefObject<HTMLInputElement>
   files: File[]
-  setFiles: (file: (oldfile: File[]) => File[]) => void
   onCreateFile: () => void
+  onUpdateFile: UpdateFunctionType
   onDeleteFile: (id: string) => void
 }
-function Files ({ inputRef, files, onCreateFile, onDeleteFile, setFiles }: FilesProps) {
+function Files ({ files, onCreateFile, onUpdateFile, onDeleteFile }: FilesProps) {
   return (
     <$.FilesWrapper>
       <$.SectionTitle>
@@ -23,7 +21,12 @@ function Files ({ inputRef, files, onCreateFile, onDeleteFile, setFiles }: Files
       <$.FileList>
         {
             files.map(file => (
-              <ListItem key={file.id} file={file} inputRef={inputRef} setFiles={setFiles} onDeleteFile={onDeleteFile} />
+              <ListItem
+                key={file.id}
+                file={file}
+                onUpdateFile={onUpdateFile}
+                onDeleteFile={onDeleteFile}
+              />
             ))
         }
       </$.FileList>

@@ -1,6 +1,6 @@
 import { Content } from 'content'
 import { useRef, useState } from 'react'
-import { File } from 'resources/types'
+import { File, TypeUpdate } from 'resources/types'
 import { Sidebar } from 'sidebar'
 import { v4 } from 'uuid'
 import styled from 'styled-components/macro'
@@ -25,6 +25,33 @@ function App () {
     ]))
   }
 
+  const updateFile = (id: string, type: TypeUpdate, title?: string, content?: string) => {
+    setFiles(oldFiles => (
+      oldFiles.map(file => {
+        if (type === 'active') {
+          return (
+            {
+              ...file,
+              active: file.id === id,
+            }
+          )
+        }
+        if (type === 'status') {
+          return file
+        }
+        else {
+          return file.id === id
+            ? ({
+                ...file,
+                name: title ?? file.name,
+                content: content ?? file.content,
+              })
+            : file
+        }
+      })
+    ))
+  }
+
   const deleteFile = (id: string) => {
     setFiles(oldFile => (
       oldFile.filter(file => file.id !== id)
@@ -33,15 +60,15 @@ function App () {
   return (
     <AppWrapper>
       <Sidebar
-        inputRef={inputRef}
         files={files}
-        setFiles={setFiles}
         onCreateFile={createNewFile}
+        onUpdateFile={updateFile}
         onDeleteFile={deleteFile}
       />
       <Content
         inputRef={inputRef}
         files={files}
+        // onUpdateFile={updateFile}
         setFiles={setFiles}
       />
     </AppWrapper>
