@@ -5,6 +5,7 @@ export type TypeUpdate = 'active' | 'status' | 'title' | 'content'
 export type UpdateFunctionType = (
     id: string,
     type: TypeUpdate,
+    status?: Status,
     title?: string,
     content?: string,
 ) => void
