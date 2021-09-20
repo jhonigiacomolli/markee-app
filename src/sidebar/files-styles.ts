@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 
 const FilesWrapper = styled.section`
-    padding: 60px 0;
+    padding: 32px 0;
 `
 const FileList = styled.ul`
     width: 100%;
