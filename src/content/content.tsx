@@ -12,19 +12,23 @@ type ContentProps = {
 }
 function Content ({ inputRef, file, onUpdateFile }:ContentProps) {
   return (
-    <$.ContentWrapper>
-      <Title
-        inputRef={inputRef}
-        file={file}
-        onUpdateFile={onUpdateFile}
-      />
-      <Markdown
-        file={file}
-        onUpdateFile={onUpdateFile}
-      />
-      <$.Line />
-      <Result file={file} />
-    </$.ContentWrapper>
+    file
+      ? (
+        <$.ContentWrapper>
+          <Title
+            inputRef={inputRef}
+            file={file}
+            onUpdateFile={onUpdateFile}
+          />
+          <Markdown
+            file={file}
+            onUpdateFile={onUpdateFile}
+          />
+          <$.Line />
+          <Result file={file} />
+        </$.ContentWrapper>
+        )
+      : null
   )
 }
 
