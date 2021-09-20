@@ -11,17 +11,12 @@ export function useFiles () {
   const timerSaved = useRef(0)
 
   useEffect(() => {
-    getFiles()
-
-    return () => {
-      getFiles()
+    const getFiles = async () => {
+      const localFiles = await localforage.getItem<File[]>('files') ?? []
+      localFiles ? setFiles(localFiles) : createNewFile()
     }
+    getFiles()
   }, [])
-
-  const getFiles = async () => {
-    const localFiles:File[] = await localforage.getItem('files') ?? []
-    localFiles.length > 0 ? setFiles(localFiles) : createNewFile()
-  }
 
   const createNewFile = () => {
     setFiles(oldFiles => {
