@@ -7,8 +7,9 @@ type ListItemProps = {
     inputRef: RefObject<HTMLInputElement>
     file: File;
     setFiles: (file: (oldfile: File[]) => File[]) => void
+    onDeleteFile: (id: string) => void
 }
-function ListItem ({ inputRef, file, setFiles }:ListItemProps) {
+function ListItem ({ inputRef, file, onDeleteFile, setFiles }:ListItemProps) {
   const Component = {
     editing: <CircleIcon />,
     saving: <SavingIcon />,
@@ -22,13 +23,6 @@ function ListItem ({ inputRef, file, setFiles }:ListItemProps) {
     inputRef.current?.focus()
   }
 
-  function handleDelete (fileID: string) {
-    setFiles(oldFiles => (
-      oldFiles
-        .filter(file => file.id !== fileID)
-    ))
-  }
-
   return (
     <$.Item active={file.active}>
       <$.PersonIcon status={file.status} active={file.active} />
@@ -38,7 +32,7 @@ function ListItem ({ inputRef, file, setFiles }:ListItemProps) {
       <$.Actions>
         {file.active && Component}
         {!file.active && (
-          <$.CloseButton onClick={() => handleDelete(file.id)}>
+          <$.CloseButton onClick={() => onDeleteFile(file.id)}>
             <CloseIcon />
           </$.CloseButton>
         )}

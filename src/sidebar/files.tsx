@@ -8,8 +8,9 @@ type FilesProps = {
   files: File[]
   setFiles: (file: (oldfile: File[]) => File[]) => void
   onCreateFile: () => void
+  onDeleteFile: (id: string) => void
 }
-function Files ({ inputRef, files, onCreateFile, setFiles }: FilesProps) {
+function Files ({ inputRef, files, onCreateFile, onDeleteFile, setFiles }: FilesProps) {
   return (
     <$.FilesWrapper>
       <$.SectionTitle>
@@ -22,7 +23,7 @@ function Files ({ inputRef, files, onCreateFile, setFiles }: FilesProps) {
       <$.FileList>
         {
             files.map(file => (
-              <ListItem key={file.id} file={file} inputRef={inputRef} setFiles={setFiles} />
+              <ListItem key={file.id} file={file} inputRef={inputRef} setFiles={setFiles} onDeleteFile={onDeleteFile} />
             ))
         }
       </$.FileList>

@@ -9,9 +9,12 @@ function App () {
   const [files, setFiles] = useState<File[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
 
-  function createNewFile () {
+  const createNewFile = () => {
     setFiles(oldFiles => ([
-      ...oldFiles,
+      ...oldFiles.map(file => ({
+        ...file,
+        active: false,
+      })),
       {
         id: v4(),
         name: 'Sem título',
@@ -21,13 +24,20 @@ function App () {
       },
     ]))
   }
+
+  const deleteFile = (id: string) => {
+    setFiles(oldFile => (
+      oldFile.filter(file => file.id !== id)
+    ))
+  }
   return (
     <AppWrapper>
       <Sidebar
         inputRef={inputRef}
         files={files}
         setFiles={setFiles}
-        onCreateFile={() => createNewFile()}
+        onCreateFile={createNewFile}
+        onDeleteFile={deleteFile}
       />
       <Content
         inputRef={inputRef}

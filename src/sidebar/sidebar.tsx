@@ -9,8 +9,9 @@ type SidebarProps = {
   files: File[]
   setFiles: (file: (oldfile: File[]) => File[]) => void
   onCreateFile: () => void
+  onDeleteFile: (id: string) => void
 }
-function Sidebar ({ inputRef, files, onCreateFile, setFiles }:SidebarProps) {
+function Sidebar ({ inputRef, files, onCreateFile, onDeleteFile, setFiles }:SidebarProps) {
   return (
     <SidebarWrapper>
       <Logo />
@@ -19,6 +20,7 @@ function Sidebar ({ inputRef, files, onCreateFile, setFiles }:SidebarProps) {
         files={files}
         setFiles={setFiles}
         onCreateFile={onCreateFile}
+        onDeleteFile={onDeleteFile}
       />
     </SidebarWrapper>
   )
