@@ -60,6 +60,7 @@ function Title ({ inputRef, files, setFiles }: TitleProps) {
         ref={inputRef}
         value={activeFile?.name}
         onChange={(e) => handleUpdateTitle(e.target.value)}
+        autoFocus
       />
     </$.TitleWrapper>
   )

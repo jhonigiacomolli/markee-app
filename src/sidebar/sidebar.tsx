@@ -8,8 +8,9 @@ type SidebarProps = {
   inputRef: RefObject<HTMLInputElement>;
   files: File[]
   setFiles: (file: (oldfile: File[]) => File[]) => void
+  onCreateFile: () => void
 }
-function Sidebar ({ inputRef, files, setFiles }:SidebarProps) {
+function Sidebar ({ inputRef, files, onCreateFile, setFiles }:SidebarProps) {
   return (
     <SidebarWrapper>
       <Logo />
@@ -17,6 +18,7 @@ function Sidebar ({ inputRef, files, setFiles }:SidebarProps) {
         inputRef={inputRef}
         files={files}
         setFiles={setFiles}
+        onCreateFile={onCreateFile}
       />
     </SidebarWrapper>
   )
