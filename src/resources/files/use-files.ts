@@ -12,11 +12,16 @@ export function useFiles () {
 
   useEffect(() => {
     const getFiles = async () => {
-      const localFiles = await localforage.getItem<File[]>('files') ?? []
+      const localFiles = await localforage.getItem<File[]>('files')
       localFiles ? setFiles(localFiles) : createNewFile()
     }
     getFiles()
   }, [])
+
+  useEffect(() => {
+    const file = files.find(file => file.active)
+    window.history.pushState(null, '', `/file/${file?.id}`)
+  }, [files])
 
   const createNewFile = () => {
     setFiles(oldFiles => {
