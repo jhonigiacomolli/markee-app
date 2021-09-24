@@ -1,8 +1,19 @@
 import styled, { css } from 'styled-components'
 
-const FilesWrapper = styled.section`
+type FilesWrapperProps = {
+    toggle: boolean
+}
+const FilesWrapper = styled.section<FilesWrapperProps>`${({ toggle }) => `
+    grid-area: files;
     padding: 32px 0;
-`
+
+    @media (max-width: 991px) {
+        contain: content;
+        height: ${toggle ? '100%' : '0px'};
+        opacity: ${toggle ? '1' : '0'};
+        transition: height 0.8s ease;
+    }
+`}`
 const FileList = styled.ul`
     width: 100%;
     margin: 0;

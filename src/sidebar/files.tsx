@@ -4,13 +4,14 @@ import { File, UpdateFunctionType } from 'resources/types'
 
 type FilesProps = {
   files: File[]
+  toggle: boolean
   onCreateFile: () => void
   onUpdateFile: UpdateFunctionType
   onDeleteFile: (id: string) => void
 }
-function Files ({ files, onCreateFile, onUpdateFile, onDeleteFile }: FilesProps) {
+function Files ({ files, toggle, onCreateFile, onUpdateFile, onDeleteFile }: FilesProps) {
   return (
-    <$.FilesWrapper>
+    <$.FilesWrapper toggle={toggle}>
       <$.SectionTitle>
         Arquivos
       </$.SectionTitle>
