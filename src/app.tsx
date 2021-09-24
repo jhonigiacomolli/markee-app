@@ -36,4 +36,9 @@ const AppWrapper = styled.div`
   min-height: 100vh;
   display: grid;
   grid-template-columns: 332px 1fr;
+
+  @media (max-width: 991px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr
+  }
 `
