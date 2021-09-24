@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components/macro'
 
 const LogoSection = styled.section`
+width: 100%;
+grid-area: logo;
 display: flex;
 align-items: center;
 justify-content: center;

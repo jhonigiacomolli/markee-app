@@ -44,7 +44,10 @@ const Link = styled.a<ItemProps>`${({ theme, active }) => css`
 
 const Actions = styled.div``
 
-const CloseButton = styled.button`${({ theme }) => css`
+type CloseButtonProps = {
+    toggle: boolean
+}
+const CloseButton = styled.button<CloseButtonProps>`${({ theme, toggle }) => css`
     border: none;
     position: absolute;
     margin: -1rem 0 0 -2.2rem;
@@ -54,7 +57,7 @@ const CloseButton = styled.button`${({ theme }) => css`
     font-size: 1.2rem;
     padding: 0.9rem;
     color: ${theme.colors.white};
-    opacity: 0;
+    opacity: ${toggle ? 1 : 0};
     cursor: pointer;
 `}`
 

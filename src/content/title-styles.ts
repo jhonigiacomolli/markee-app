@@ -12,7 +12,6 @@ const TitleIcon = styled(FileIcon)`${({ theme }) => css`
 `}`
 
 const Input = styled.input`${({ theme }) => css`
-    width: 100%;
     font-family: 'DM Sans' sans-serif;
     font-size: 1.8rem;
     font-weight: 500;
