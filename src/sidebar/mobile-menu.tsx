@@ -17,6 +17,7 @@ function MobileMenu ({ toggle, handleToggle }: MobileMenuProps) {
 export { MobileMenu }
 
 const MenuContainer = styled.div`${({ theme }) => css`
+    display: none;
     grid-area: mobile;
     padding: 20px 10px;
     cursor: pointer;
@@ -27,6 +28,9 @@ const MenuContainer = styled.div`${({ theme }) => css`
     :hover span {
         transition: 0.4s ease;
         background-color: ${theme.colors.primary}
+    }
+    @media (max-width: 991px) {
+        display: block
     }
 `}`
 type MenuLineProps = {

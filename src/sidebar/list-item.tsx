@@ -4,10 +4,11 @@ import { File, UpdateFunctionType } from 'resources/types'
 
 type ListItemProps = {
     file: File;
+    toggle: boolean
     onUpdateFile: UpdateFunctionType
     onDeleteFile: (id: string) => void
 }
-function ListItem ({ file, onDeleteFile, onUpdateFile }:ListItemProps) {
+function ListItem ({ file, toggle, onDeleteFile, onUpdateFile }:ListItemProps) {
   const Component = {
     editing: <CircleIcon />,
     saving: <SavingIcon />,
@@ -26,7 +27,7 @@ function ListItem ({ file, onDeleteFile, onUpdateFile }:ListItemProps) {
       <$.Actions>
         {file.active && Component}
         {!file.active && (
-          <$.CloseButton onClick={() => onDeleteFile(file.id)}>
+          <$.CloseButton onClick={() => onDeleteFile(file.id)} toggle={toggle}>
             <CloseIcon />
           </$.CloseButton>
         )}

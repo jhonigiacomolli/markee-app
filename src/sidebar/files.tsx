@@ -27,6 +27,7 @@ function Files ({ files, toggle, onCreateFile, onUpdateFile, onDeleteFile }: Fil
                 file={file}
                 onUpdateFile={onUpdateFile}
                 onDeleteFile={onDeleteFile}
+                toggle={toggle}
               />
             ))
         }
