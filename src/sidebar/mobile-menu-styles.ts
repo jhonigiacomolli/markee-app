@@ -35,5 +35,4 @@ const MenuLine = styled.span<MenuLineProps>`${({ theme, position, toggle }) => c
     ;
     transition: 0.4s ease;
 `}`
-
 export { MenuContainer, MenuLine }
