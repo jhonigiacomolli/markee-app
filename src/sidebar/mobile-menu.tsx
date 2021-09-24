@@ -14,5 +14,3 @@ function MobileMenu ({ toggle, handleToggle }: MobileMenuProps) {
 }
 
 export { MobileMenu }
-
-
